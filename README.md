@@ -25,6 +25,15 @@ Test
 Voici les versions des services :
 
 - Java JDK : 21
+  Pour télécharger cette version :
+  Ensuite il faut mettre le JDK dans les variables d'environnement :
+
+  - Ajouter la variable d'environnement JAVA_HOME : C:/Program Files/Java/jdk-21
+  - Ajouter la variable d'environnement PATH : C:/Program Files/Java/jdk-21/bin
+    Pour vérifier que le JDK est bien installé :
+
+  `java -version`
+  Redémarrer le PC si nécessaire.
 
 ## Fabriqué avec
 
