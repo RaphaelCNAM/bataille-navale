@@ -11,6 +11,10 @@ public class Joueur {
 		
 	}
 	
+	public void tireMissile() {
+		
+	}
+	
 	
 	
 	
