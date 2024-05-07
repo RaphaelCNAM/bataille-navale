@@ -1,45 +1,49 @@
 package interfaceGrafique;
 
-import java.awt.Dimension;
 import java.awt.Color;
-
-import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
+import entity.Bateau;
 
-public class GamePanel extends JPanel implements Runnable{
-	//option d'écrant
-	
-	final int originalTileSize = 16; //16x16pixel = 1tile
-	final int scale = 3;
-	
-	public final int tileSize = originalTileSize * scale; //48x48 tile	
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;		
-	public final int screenWidht = tileSize * maxScreenCol; //768 pixel
-	public final int screenHeight = tileSize * maxScreenRow; //576 pixel
-	
-	public GamePanel() {
-		this.setPreferredSize(new Dimension(screenWidht,screenHeight));
-		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
-		this.setFocusable(true);
-	    createGridButtons();		
-	}
-	
-	private void createGridButtons() {
-	    for (int row = 0; row < maxScreenRow; row++) {
-	        for (int col = 0; col < maxScreenCol; col++) {
-	            JButton button = new JButton();
-	            button.setPreferredSize(new Dimension(tileSize, tileSize));
-	            // Ajoutez ici un écouteur d'événements pour chaque bouton si nécessaire
-	            this.add(button);
-	        }
-	    }
-	}
+public class GamePanel extends JPanel implements Runnable {
+    final int originalTileSize = 16; //16x16pixel = 1tile
+    final int scale = 3;
+    
+    public final int tileSize = originalTileSize * scale; //48x48 tile   
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;      
+    public final int screenWidht = tileSize * maxScreenCol; //768 pixel
+    public final int screenHeight = tileSize * maxScreenRow; //576 pixel
+    
+    private List<Bateau> listBateaux;
 
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidht, screenHeight));
+        this.setBackground(Color.black);
+        this.setDoubleBuffered(true);
+        this.setFocusable(true);
+        this.listBateaux = new ArrayList<>();
+    }
 
-	
-	public void run() {
-		
-	}
+    public void addBateau(Bateau bateau) {
+        listBateaux.add(bateau);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dessinez tous les bateaux présents dans la liste
+        for (Bateau bateau : listBateaux) {
+            // Par exemple, vous pouvez appeler la méthode dessiner de la classe Bateau
+            // en passant le Graphics g en argument pour dessiner chaque bateau
+            bateau.dessiner(g);
+        }
+    }
+
+    public void run() {
+        // Code de votre méthode run si nécessaire
+    }
 }
