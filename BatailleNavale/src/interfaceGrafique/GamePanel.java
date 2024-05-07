@@ -1,9 +1,11 @@
 package interfaceGrafique;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Color;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -23,19 +25,20 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
-	    createGridButtons();		
+		createGridButtons();
 	}
 	
-	private void createGridButtons() {
-	    for (int row = 0; row < maxScreenRow-2; row++) {
-	        for (int col = 0; col < maxScreenCol-6; col++) {
+	public void createGridButtons() {
+        JPanel panel = new JPanel(new GridLayout(10,10));        
+	    for (int row = 0; row < 10; row++) {
+	        for (int col = 0; col < 10; col++) {
 	            JButton button = new JButton();
 	            button.setPreferredSize(new Dimension(tileSize, tileSize));
-	            // Ajoutez ici un écouteur d'événements pour chaque bouton si nécessaire
-	            
-	            this.add(button);
+	            panel.add(button);
 	        }
 	    }
+	    panel.setBounds(50, 50, 200, 200);
+	    this.add(panel);
 	}
 
 
