@@ -27,11 +27,12 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	private void createGridButtons() {
-	    for (int row = 0; row < maxScreenRow; row++) {
-	        for (int col = 0; col < maxScreenCol; col++) {
+	    for (int row = 0; row < maxScreenRow-2; row++) {
+	        for (int col = 0; col < maxScreenCol-6; col++) {
 	            JButton button = new JButton();
 	            button.setPreferredSize(new Dimension(tileSize, tileSize));
 	            // Ajoutez ici un écouteur d'événements pour chaque bouton si nécessaire
+	            
 	            this.add(button);
 	        }
 	    }
