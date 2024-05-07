@@ -31,7 +31,7 @@ public class Bateau {
 				c.getLigne() <= fin.getLigne();
 	}
 	
-	public boolean chvauche(Bateau b) {
+	public boolean chevauche(Bateau b) {
 		if (this.debut.getLigne() == this.fin.getLigne()) {
 			
 			return b.debut.getColonne() >= this.debut.getColonne() &&
