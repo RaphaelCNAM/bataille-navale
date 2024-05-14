@@ -87,8 +87,32 @@ public class Bateau {
     public void dessiner(Graphics g) {
         // Dessiner le bateau sur l'interface graphique
         // Vous devez implémenter cette méthode en fonction de votre interface graphique
-        g.setColor(Color.GREEN); // Par exemple, couleur bleue pour le bateau
+        g.setColor(Color.WHITE); // Par exemple, couleur bleue pour le bateau
         // Dessinez un rectangle ou tout autre forme pour représenter le bateau
         g.fillRect(debut.getColonne(), debut.getLigne(), fin.getColonne() - debut.getColonne(), fin.getLigne() - debut.getLigne());
     }
+
+    public boolean estVertical() {
+        return this.debut.getColonne() == this.fin.getColonne();
+    }
+    
+
+
+    public void placerSurGrille(char[][] grille) {
+        Coordonnee debut = this.getDebut();
+        Coordonnee fin = this.getFin();
+    
+        if (this.estVertical()) {
+            for (int row = debut.getLigne(); row <= fin.getLigne(); row++) {
+                grille[row][debut.getColonne()] = 'X';
+            }
+        } else {
+            for (int col = debut.getColonne(); col <= fin.getColonne(); col++) {
+                grille[debut.getLigne()][col] = 'X';
+            }
+        }
+    }
+    
+    
+
 }

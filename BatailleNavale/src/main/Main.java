@@ -1,29 +1,43 @@
 package main;
 
-import java.awt.Color;
-
-import javax.swing.JFrame;
-
 import entity.Bateau;
 import entity.Coordonnee;
+import entity.Croiseur;
 import entity.PorteAvion;
-import interfaceGrafique.WindowFrame;
 
 public class Main {
     public static void main(String[] args) {
-        // Création de la fenêtre principale
-        WindowFrame windowFrame = new WindowFrame();
+        // Création d'une grille de 10x10 remplie de O
+        char[][] grille = new char[10][10];
+        for (int i = 0; i < grille.length; i++) {
+            for (int j = 0; j < grille[0].length; j++) {
+                grille[i][j] = 'O';
+            }
+        }
 
-        // Création d'un bateau à ajouter au panneau de jeu
-        int x = (int) (Math.random() * 500); // Génère une coordonnée x aléatoire
-        int y = (int) (Math.random() * 500); // Génère une coordonnée y aléatoire
-        boolean estVertical = Math.random() < 0.5; // Génère une orientation aléatoire
-        PorteAvion bateau = new PorteAvion(new Coordonnee(x, y), 5, estVertical); // Création du bateau
+        // Création d'un bateau
+        int x = (int) (Math.random() * 8); // Génère une coordonnée x aléatoire
+        int y = (int) (Math.random() * 8); // Génère une coordonnée y aléatoire
+        boolean estHorizontal = Math.random() < 0.5; // Génère une orientation aléatoire
+        PorteAvion bateau = new PorteAvion(new Coordonnee(2, 2), 5, estHorizontal); // Création du bateau
 
-        // Ajout du bateau au panneau de jeu
-        windowFrame.getGamePanel().addBateau(bateau);
+        // Placement du bateau sur la grille
+        bateau.placerSurGrille(grille);
 
-        // Rafraîchissement de l'affichage
-        windowFrame.repaint();
+        // Affichage de la grille dans le terminal
+        afficherGrille(grille);
+        System.out.println("Position du bateau : (" + 1 + ", " + 5 + ")");
+        System.out.println("Orientation : " + (estHorizontal ? "Horizontal" : "Vertical"));
     }
+
+    // Méthode pour afficher la grille dans le terminal
+    public static void afficherGrille(char[][] grille) {
+        for (int i = 0; i < grille.length; i++) {
+            for (int j = 0; j < grille[0].length; j++) {
+                System.out.print(grille[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    
 }
