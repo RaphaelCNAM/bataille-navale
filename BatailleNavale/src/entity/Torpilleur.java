@@ -1,11 +1,9 @@
 package entity;
 
-public class Torpilleur extends Bateau{
+public class Torpilleur extends Bateau {
 
-    public Torpilleur(Coordonnee debut, int longeur, boolean estVertical) {
-        super(debut, longeur, estVertical);
-        this.name = "Torpilleur";
-        this.taille = 2;
+    public Torpilleur(Coordonnee debut, boolean estVertical) {
+        super(debut, 2, estVertical);
+        this.setName("Torpilleur");
     }
-
 }

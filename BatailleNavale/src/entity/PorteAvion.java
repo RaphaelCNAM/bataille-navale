@@ -1,11 +1,8 @@
 package entity;
 
-public class PorteAvion extends Bateau{
-
-    public PorteAvion(Coordonnee debut, int longeur, boolean estVertical) {
-        super(debut, longeur, estVertical);
-        this.name = "Porte-Avion";
-        this.taille = 5;
+public class PorteAvion extends Bateau {
+    public PorteAvion(Coordonnee debut, boolean estVertical) {
+        super(debut, 5, estVertical);
+        this.setName("Porte-Avion");
     }
-
 }

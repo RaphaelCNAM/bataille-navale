@@ -1,8 +1,9 @@
 package entity;
 
-public class Joueur {
+public abstract class Joueur {
 
 	//Bateau[] bateaus;
+	protected String playerName;
 	
 	public Joueur() {
 	}
