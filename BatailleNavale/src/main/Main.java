@@ -3,86 +3,47 @@ package main;
 import entity.Bateau;
 import entity.Coordonnee;
 import entity.Croiseur;
+import entity.Joueur;
+import entity.JoueurOrdinateur;
 import entity.PorteAvion;
 import entity.SousMarin;
 import entity.Torpilleur;
 
 public class Main {
     public static void main(String[] args) {
-        // Création d'une grille de 10x10 remplie de O
-        char[][] grille = new char[10][10];
-        for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++) {
-                grille[i][j] = 'O';
-            }
+        // Initialiser les joueurs
+        Joueur joueur = new Joueur();
+        JoueurOrdinateur ordinateur = new JoueurOrdinateur();
+
+        // Création et placement des bateaux pour le joueur humain
+        Bateau[] bateauxJoueur = new Bateau[5];
+        bateauxJoueur[0] = new PorteAvion(new Coordonnee((int) (Math.random() * 6), (int) (Math.random() * 6)), Math.random() < 0.5);
+        bateauxJoueur[1] = new Croiseur(new Coordonnee((int) (Math.random() * 7), (int) (Math.random() * 7)), Math.random() < 0.5);
+        bateauxJoueur[2] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
+        bateauxJoueur[3] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
+        bateauxJoueur[4] = new Torpilleur(new Coordonnee((int) (Math.random() * 9), (int) (Math.random() * 9)), Math.random() < 0.5);
+
+        for (Bateau bateau : bateauxJoueur) {
+            joueur.addBateau(bateau);
         }
 
-        // Création et placement des bateaux
-        Bateau[] bateaux = new Bateau[5];
-        bateaux[0] = new PorteAvion(new Coordonnee((int) (Math.random() * 6), (int) (Math.random() * 6)), Math.random() < 0.5);
-        bateaux[1] = new Croiseur(new Coordonnee((int) (Math.random() * 7), (int) (Math.random() * 7)), Math.random() < 0.5);
-        bateaux[2] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-        bateaux[3] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-        bateaux[4] = new Torpilleur(new Coordonnee((int) (Math.random() * 9), (int) (Math.random() * 9)), Math.random() < 0.5);
+        // Création et placement des bateaux pour l'ordinateur
+        Bateau[] bateauxOrdinateur = new Bateau[5];
+        bateauxOrdinateur[0] = new PorteAvion(new Coordonnee((int) (Math.random() * 6), (int) (Math.random() * 6)), Math.random() < 0.5);
+        bateauxOrdinateur[1] = new Croiseur(new Coordonnee((int) (Math.random() * 7), (int) (Math.random() * 7)), Math.random() < 0.5);
+        bateauxOrdinateur[2] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
+        bateauxOrdinateur[3] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
+        bateauxOrdinateur[4] = new Torpilleur(new Coordonnee((int) (Math.random() * 9), (int) (Math.random() * 9)), Math.random() < 0.5);
 
-        for (Bateau bateau : bateaux) {
-            while (!placerBateauSansChevauchement(grille, bateau)) {
-                // Repositionner le bateau s'il y a chevauchement
-                int x = (int) (Math.random() * (10 - bateau.getTaille()));
-                int y = (int) (Math.random() * (10 - bateau.getTaille()));
-                boolean estVertical = Math.random() < 0.5;
-
-                // Recréer le bateau avec une nouvelle position
-                if (bateau instanceof PorteAvion) {
-                    bateau = new PorteAvion(new Coordonnee(x, y), estVertical);
-                } else if (bateau instanceof Croiseur) {
-                    bateau = new Croiseur(new Coordonnee(x, y), estVertical);
-                } else if (bateau instanceof SousMarin) {
-                    bateau = new SousMarin(new Coordonnee(x, y), estVertical);
-                } else if (bateau instanceof Torpilleur) {
-                    bateau = new Torpilleur(new Coordonnee(x, y), estVertical);
-                }
-            }
+        for (Bateau bateau : bateauxOrdinateur) {
+            ordinateur.addBateau(bateau);
         }
 
-        // Affichage de la grille dans le terminal
-        afficherGrille(grille);
-    }
-
-    // Méthode pour afficher la grille dans le terminal
-    public static void afficherGrille(char[][] grille) {
-        for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++) {
-                System.out.print(grille[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    // Méthode pour vérifier et placer un bateau sans chevauchement
-    public static boolean placerBateauSansChevauchement(char[][] grille, Bateau bateau) {
-        Coordonnee debut = bateau.getDebut();
-        Coordonnee fin = bateau.getFin();
-
-        if (bateau.estVertical()) {
-            for (int row = debut.getLigne(); row <= fin.getLigne(); row++) {
-                if (grille[row][debut.getColonne()] != 'O') {
-                    return false; // Chevauchement détecté
-                }
-            }
-            for (int row = debut.getLigne(); row <= fin.getLigne(); row++) {
-                grille[row][debut.getColonne()] = bateau.getName().charAt(0);
-            }
-        } else {
-            for (int col = debut.getColonne(); col <= fin.getColonne(); col++) {
-                if (grille[debut.getLigne()][col] != 'O') {
-                    return false; // Chevauchement détecté
-                }
-            }
-            for (int col = debut.getColonne(); col <= fin.getColonne(); col++) {
-                grille[debut.getLigne()][col] = bateau.getName().charAt(0);
-            }
-        }
-        return true;
+        // Affichage des grilles des joueurs dans le terminal
+        System.out.println("Grille du joueur :");
+        joueur.afficherGrille();
+        
+        System.out.println("Grille de l'ordinateur :");
+        ordinateur.afficherGrille();
     }
 }

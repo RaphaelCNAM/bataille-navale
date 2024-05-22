@@ -38,7 +38,7 @@ public class Bateau {
         return this.name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 

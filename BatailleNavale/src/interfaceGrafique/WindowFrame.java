@@ -34,7 +34,7 @@ public class WindowFrame extends JFrame {
         for (Bateau bateau : listBateaux) {
             // Par exemple, vous pouvez appeler la méthode dessiner de la classe Bateau
             // en passant le Graphics g en argument pour dessiner chaque bateau
-            bateau.dessiner(g);
+            //bateau.dessiner(g);
         }
     }
 
