@@ -2,6 +2,8 @@ package interfaceGrafique;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -15,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable{
 	//option d'écrant
 	
 	final int originalTileSize = 16; //16x16pixel = 1tile
-	final int scale = 2;
+	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale;
 	
@@ -28,6 +30,17 @@ public class GamePanel extends JPanel implements Runnable{
 	        for (int col = 0; col < 10; col++) {
 	            JButton button = new JButton();
 	            button.setPreferredSize(new Dimension(tileSize, tileSize));
+	            button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	if(button.getBackground() == Color.red) {//modifier pour que ce soit les bateau qui donne la couleur des boutons
+                    		button.setBackground(Color.black);
+                    	}else {
+                    		button.setBackground(Color.red);	
+                    	}
+                        
+                    }
+                });
 	            panel.add(button);
 	        }
 	    }
@@ -36,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public JPanel informationPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		JTextArea zoneTexte = new JTextArea("Ici vous verrez les informations de toucher/couler sur tous les bateaux ennemis.");
+		JTextArea zoneTexte = new JTextArea("Ici vous verrez les informations de \n toucher/couler sur tous les bateaux ennemis.");
         zoneTexte.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(zoneTexte);
         panel.add(scrollPane, BorderLayout.CENTER);
