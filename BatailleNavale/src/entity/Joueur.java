@@ -67,11 +67,74 @@ public class Joueur {
     }
 
     public void afficherGrille() {
-        for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++) {
-                System.out.print(grille[i][j] + " ");
-            }
-            System.out.println();
+        System.out.println("  ╔═══════════════════════════════════════╗");
+        System.out.println("  ║              Votre grille             ║");
+        System.out.println("  ╚═══════════════════════════════════════╝");
+        System.out.println();
+        System.out.print("    ");
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(i + "   ");
         }
+        System.out.println();
+
+        char[] lettres = "ABCDEFGHIJ".toCharArray();
+        for (int j = 0; j < grille.length; j++) {
+            if (j == 0) {
+                System.out.println("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
+            }
+
+            for (int i = 0; i < grille[j].length; i++) {
+                if (i == 0) {
+                    System.out.print(lettres[j] + " ║");
+                } else {
+                    System.out.print("║");
+                }
+                System.out.print(" " + grille[j][i] + " ");
+            }
+            System.out.println("║");
+
+            if (j == grille.length - 1) {
+                System.out.println("  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
+            } else {
+                System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+            }
+        }
+        System.out.println();
+    }
+
+	public void afficherGrilleOrdi() {
+        System.out.println("  ╔═══════════════════════════════════════╗");
+        System.out.println("  ║               Grille de Michel        ║");
+        System.out.println("  ╚═══════════════════════════════════════╝");
+        System.out.println();
+        System.out.print("    ");
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(i + "   ");
+        }
+        System.out.println();
+
+        char[] lettres = "ABCDEFGHIJ".toCharArray();
+        for (int j = 0; j < grille.length; j++) {
+            if (j == 0) {
+                System.out.println("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
+            }
+
+            for (int i = 0; i < grille[j].length; i++) {
+                if (i == 0) {
+                    System.out.print(lettres[j] + " ║");
+                } else {
+                    System.out.print("║");
+                }
+                System.out.print(" " + grille[j][i] + " ");
+            }
+            System.out.println("║");
+
+            if (j == grille.length - 1) {
+                System.out.println("  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
+            } else {
+                System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+            }
+        }
+        System.out.println();
     }
 }

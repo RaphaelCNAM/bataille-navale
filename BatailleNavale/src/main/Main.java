@@ -39,11 +39,8 @@ public class Main {
             ordinateur.addBateau(bateau);
         }
 
-        // Affichage des grilles des joueurs dans le terminal
-        System.out.println("Grille du joueur :");
         joueur.afficherGrille();
         
-        System.out.println("Grille de l'ordinateur :");
-        ordinateur.afficherGrille();
+        ordinateur.afficherGrilleOrdi();
     }
 }
