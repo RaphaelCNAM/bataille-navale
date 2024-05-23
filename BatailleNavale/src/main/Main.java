@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Scanner;
+
 import entity.Bateau;
 import entity.Coordonnee;
 import entity.Croiseur;
@@ -42,5 +44,14 @@ public class Main {
         joueur.afficherGrille();
         
         ordinateur.afficherGrilleOrdi();
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Entrez les coordonnées pour tirer (ex: A5): ");
+            String coordonnee = scanner.nextLine().toUpperCase();
+
+            ordinateur.tirer(coordonnee);
+            ordinateur.afficherGrilleOrdi();
+        }
     }
 }

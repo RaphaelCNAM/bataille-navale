@@ -66,6 +66,17 @@ public class Joueur {
         return true;
     }
 
+    public void tirer(String coordonnee) {
+        int ligne = coordonnee.charAt(0) - 'A';
+        int colonne = Integer.parseInt(coordonnee.substring(1)) - 1;
+
+        if (grille[ligne][colonne] == 'O') {
+            grille[ligne][colonne] = 'M'; // M pour miss (raté)
+        } else {
+            grille[ligne][colonne] = 'X'; // X pour hit (touché)
+        }
+    }
+
     public void afficherGrille() {
         System.out.println("  ╔═══════════════════════════════════════╗");
         System.out.println("  ║              Votre grille             ║");
@@ -89,7 +100,18 @@ public class Joueur {
                 } else {
                     System.out.print("║");
                 }
-                System.out.print(" " + grille[j][i] + " ");
+                char c = grille[j][i];
+                switch (c) {
+                    case 'M':
+                        System.out.print("\033[34m O \033[0m"); // O bleu pour miss
+                        break;
+                    case 'X':
+                        System.out.print("\033[31m X \033[0m"); // X rouge pour hit
+                        break;
+                    default:
+                        System.out.print(" " + c + " ");
+                        break;
+                }
             }
             System.out.println("║");
 
@@ -125,7 +147,18 @@ public class Joueur {
                 } else {
                     System.out.print("║");
                 }
-                System.out.print(" " + grille[j][i] + " ");
+                char c = grille[j][i];
+                switch (c) {
+                    case 'M':
+                        System.out.print("\033[34m O \033[0m"); // O bleu pour miss
+                        break;
+                    case 'X':
+                        System.out.print("\033[31m X \033[0m"); // X rouge pour hit
+                        break;
+                    default:
+                        System.out.print(" " + c + " ");
+                        break;
+                }
             }
             System.out.println("║");
 
