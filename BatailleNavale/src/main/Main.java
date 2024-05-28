@@ -51,9 +51,11 @@ public class Main {
 	        while (true) {
 	            System.out.print("Entrez les coordonnées pour tirer (ex: A5): ");
 	            String coordonnee = scanner.nextLine().toUpperCase();
-
-	            ordinateur.tirer(coordonnee);
+	            
+	            joueur.tirer(coordonnee);
+	            ordinateur.autoTire();	            
 	            ordinateur.afficherGrilleOrdi();
+	            joueur.afficherGrilleOrdi();
 	        }
 	    }
 }

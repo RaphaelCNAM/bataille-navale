@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import entity.bateaux.*;
@@ -12,10 +13,8 @@ public class Joueur {
     public Joueur() {
         // Initialiser une grille 10x10 remplie de 'O'
         grille = new char[10][10];
-        for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++) {
-                grille[i][j] = 'O';
-            }
+        for (char[] row : grille) {
+            Arrays.fill(row, 'O');
         }
         bateaux = new ArrayList<>();
     }
