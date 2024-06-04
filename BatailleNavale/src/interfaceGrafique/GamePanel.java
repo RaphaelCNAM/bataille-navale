@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import entity.Coordonnee;
+import entity.Joueur;
+
 public class GamePanel extends JPanel implements Runnable{
 	//option d'écrant
 	
@@ -24,17 +27,20 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel() {
 	}
 	
-	public JPanel createGridButtons() {
+	public JPanel createGridButtons(Joueur playeur) {
         JPanel panel = new JPanel(new GridLayout(10,10));        
 	    for (int row = 0; row < 10; row++) {
 	        for (int col = 0; col < 10; col++) {
 	            JButton button = new JButton();
 	            button.setPreferredSize(new Dimension(tileSize, tileSize));
+	            final int currentRow = row;
+	            final int currentCol = col;
 	            button.addActionListener(new ActionListener() {
-                    @Override
                     public void actionPerformed(ActionEvent e) {
-                    	if(button.getBackground() == Color.red) {//modifier pour que ce soit les bateau qui donne la couleur des boutons
-                    		button.setBackground(Color.black);
+                    	Coordonnee coor = new Coordonnee(currentRow,currentCol);
+                    	boolean bool = playeur.buttonTirer(coor);
+                    	if(bool == true) {//modifier pour que ce soit les bateau qui donne la couleur des boutons
+                    		button.setBackground(Color.blue);
                     	}else {
                     		button.setBackground(Color.red);	
                     	}

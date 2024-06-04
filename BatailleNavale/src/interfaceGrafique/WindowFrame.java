@@ -6,11 +6,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import entity.Joueur;
+
 
 
 public class WindowFrame {
 	
-	public JFrame createWindow() {
+	public JFrame createWindow(Joueur playeur) {
 		JFrame fenetre = new JFrame();
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setResizable(false);
@@ -19,7 +21,7 @@ public class WindowFrame {
         
         GamePanel GamePanels = new GamePanel();
         
-        JPanel panelGauche = GamePanels.createGridButtons();
+        JPanel panelGauche = GamePanels.createGridButtons(playeur);
         JPanel panelDroite = GamePanels.informationPanel();
         
         panelGauche.setBackground(Color.BLUE);

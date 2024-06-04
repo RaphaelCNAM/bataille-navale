@@ -77,6 +77,15 @@ public class Joueur {
             grille[ligne][colonne] = 'X'; // X pour hit (touché)
         }
     }
+    
+    public boolean buttonTirer(Coordonnee coordonnee) {
+        int ligne = coordonnee.getLigne();
+        int colonne = coordonnee.getColonne();
+        if (grille[ligne][colonne] != 'O') {
+            return true;
+        }
+        return false;
+    }
 
     public void afficherGrille() {
         System.out.println("  ╔═══════════════════════════════════════╗");
