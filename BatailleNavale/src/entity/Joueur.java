@@ -73,8 +73,10 @@ public class Joueur {
 
         if (grille[ligne][colonne] == 'O') {
             grille[ligne][colonne] = 'M'; // M pour miss (raté)
+            System.out.println("votre missile est dans la mer");
         } else {
             grille[ligne][colonne] = 'X'; // X pour hit (touché)
+            System.out.println("votre missile a touche");
         }
     }
     
@@ -166,7 +168,7 @@ public class Joueur {
                         System.out.print("\033[31m X \033[0m"); // X rouge pour hit
                         break;
                     default:
-                        System.out.print(" " + c + " ");
+                        System.out.print(" "+" "+" ");
                         break;
                 }
             }

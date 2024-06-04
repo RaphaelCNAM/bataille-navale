@@ -100,7 +100,7 @@ public class Main {
 	            ordinateur.autoTire();	    
 	            winJ = joueur.isFinish();
 	            winO = ordinateur.isFinish();
-	            ordinateur.afficherGrilleOrdi();
+	            ordinateur.afficherGrille();
 	            joueur.afficherGrilleOrdi();
 	        }
 	        
