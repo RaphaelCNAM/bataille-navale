@@ -180,4 +180,18 @@ public class Joueur {
         }
         System.out.println();
     }
+
+	public boolean isFinish() {
+		int cpt = 0;
+		for (char[] row : this.grille) {
+		    for (char cell : row) {
+		        if (cell == 'X') {
+		            cpt ++;
+		        }
+		    }
+		}
+		System.out.println(cpt);
+		if (cpt != 17) {return false;}
+		else { return true;}
+	}
 }

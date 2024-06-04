@@ -39,12 +39,15 @@ public class GamePanel extends JPanel implements Runnable{
                     public void actionPerformed(ActionEvent e) {
                     	Coordonnee coor = new Coordonnee(currentRow,currentCol);
                     	boolean bool = playeur.buttonTirer(coor);
-                    	if(bool == true) {//modifier pour que ce soit les bateau qui donne la couleur des boutons
-                    		button.setBackground(Color.blue);
+                    	if(bool == true) {
+                    		button.setBackground(Color.red);
+                    		
                     	}else {
-                    		button.setBackground(Color.red);	
+                    		button.setBackground(Color.blue);	
                     	}
-                        
+                    	//ajouter le tire pour la logique
+                		//ajouter le tire du bot
+                    	//ajouter la login de gagner
                     }
                 });
 	            panel.add(button);

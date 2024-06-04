@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import interfaceGrafique.WindowFrame;
 
 public class Main {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// Initialiser les joueurs
         Joueur joueur = new Joueur();
         JoueurOrdinateur ordinateur = new JoueurOrdinateur();
@@ -52,13 +52,14 @@ public class Main {
             ordinateur.autoTire();	            
             ordinateur.afficherGrilleOrdi();
             joueur.afficherGrilleOrdi();
-        }*/
+        }
 		WindowFrame w = new WindowFrame();
 		w.createWindow(joueur);
-	}
-	/*
+	}*/
+	
 	 public static void main(String[] args) {
 	        // Initialiser les joueurs
+		 	boolean winJ=false,winO=false;
 	        Joueur joueur = new Joueur();
 	        JoueurOrdinateur ordinateur = new JoueurOrdinateur();
 
@@ -91,15 +92,23 @@ public class Main {
 	        ordinateur.afficherGrilleOrdi();
 
 	        Scanner scanner = new Scanner(System.in);
-	        while (true) {
+	        while (winJ==false && winO==false) {
 	            System.out.print("Entrez les coordonnées pour tirer (ex: A5): ");
 	            String coordonnee = scanner.nextLine().toUpperCase();
 	            
 	            joueur.tirer(coordonnee);
-	            ordinateur.autoTire();	            
+	            ordinateur.autoTire();	    
+	            winJ = joueur.isFinish();
+	            winO = ordinateur.isFinish();
 	            ordinateur.afficherGrilleOrdi();
 	            joueur.afficherGrilleOrdi();
 	        }
+	        
+	        if(winO == true) {
+	        	System.out.println("L'ordinateur a Gagner");
+	        }else if(winJ == true) {
+	        	System.out.println("Vous a Gagner");
+	        }
 	    }
-	    */
+	    
 }
