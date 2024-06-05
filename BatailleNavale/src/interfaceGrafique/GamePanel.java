@@ -1,10 +1,20 @@
 package interfaceGrafique;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import entity.Coordonnee;
+import entity.Joueur;
 
 public class GamePanel extends JPanel implements Runnable{
 	//option d'écrant
@@ -12,32 +22,48 @@ public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSize = 16; //16x16pixel = 1tile
 	final int scale = 3;
 	
-	public final int tileSize = originalTileSize * scale; //48x48 tile	
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;		
-	public final int screenWidht = tileSize * maxScreenCol; //768 pixel
-	public final int screenHeight = tileSize * maxScreenRow; //576 pixel
+	public final int tileSize = originalTileSize * scale;
 	
 	public GamePanel() {
-		this.setPreferredSize(new Dimension(screenWidht,screenHeight));
-		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
-		this.setFocusable(true);
-	    createGridButtons();		
 	}
 	
-	private void createGridButtons() {
-	    for (int row = 0; row < maxScreenRow; row++) {
-	        for (int col = 0; col < maxScreenCol; col++) {
+	public JPanel createGridButtons(Joueur playeur) {
+        JPanel panel = new JPanel(new GridLayout(10,10));        
+	    for (int row = 0; row < 10; row++) {
+	        for (int col = 0; col < 10; col++) {
 	            JButton button = new JButton();
 	            button.setPreferredSize(new Dimension(tileSize, tileSize));
-	            // Ajoutez ici un écouteur d'événements pour chaque bouton si nécessaire
-	            this.add(button);
+	            final int currentRow = row;
+	            final int currentCol = col;
+	            button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	Coordonnee coor = new Coordonnee(currentRow,currentCol);
+                    	boolean bool = playeur.buttonTirer(coor);
+                    	if(bool == true) {
+                    		button.setBackground(Color.red);
+                    		
+                    	}else {
+                    		button.setBackground(Color.blue);	
+                    	}
+                    	//ajouter le tire pour la logique
+                		//ajouter le tire du bot
+                    	//ajouter la login de gagner
+                    }
+                });
+	            panel.add(button);
 	        }
 	    }
+	    return panel;
 	}
-
-
+	
+	public JPanel informationPanel() {
+		JPanel panel = new JPanel(new BorderLayout());
+		JTextArea zoneTexte = new JTextArea("Ici vous verrez les informations de \n toucher/couler sur tous les bateaux ennemis.");
+        zoneTexte.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(zoneTexte);
+        panel.add(scrollPane, BorderLayout.CENTER);
+		return panel;
+	}
 	
 	public void run() {
 		
