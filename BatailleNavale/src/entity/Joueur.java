@@ -67,19 +67,36 @@ public class Joueur {
         return true;
     }
 
-    public void tirer(String coordonnee) {
+    public void tirer(String coordonnee) throws InvalidTirException {
+        if (coordonnee.length() < 2 || coordonnee.length() > 3) {
+            throw new InvalidTirException("Coordonnée invalide : " + coordonnee);
+        }
+
         int ligne = coordonnee.charAt(0) - 'A';
-        int colonne = Integer.parseInt(coordonnee.substring(1)) - 1;
+        int colonne;
+        try {
+            colonne = Integer.parseInt(coordonnee.substring(1)) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidTirException("Coordonnée invalide : " + coordonnee);
+        }
+
+        if (ligne < 0 || ligne >= 10 || colonne < 0 || colonne >= 10) {
+            throw new InvalidTirException("Coordonnée hors de la grille : " + coordonnee);
+        }
+
+        if (grille[ligne][colonne] == 'M' || grille[ligne][colonne] == 'X') {
+            throw new InvalidTirException("Case déjà tirée : " + coordonnee);
+        }
 
         if (grille[ligne][colonne] == 'O') {
             grille[ligne][colonne] = 'M'; // M pour miss (raté)
-            System.out.println("votre missile est dans la mer");
+            System.out.println("Votre missile est dans la mer");
         } else {
             grille[ligne][colonne] = 'X'; // X pour hit (touché)
-            System.out.println("votre missile a touche");
+            System.out.println("Votre missile a touché");
         }
     }
-    
+
     public boolean buttonTirer(Coordonnee coordonnee) {
         int ligne = coordonnee.getLigne();
         int colonne = coordonnee.getColonne();
@@ -89,30 +106,59 @@ public class Joueur {
         return false;
     }
 
-    public void afficherGrille() {
-        System.out.println("  ╔═══════════════════════════════════════╗");
-        System.out.println("  ║              Votre grille             ║");
-        System.out.println("  ╚═══════════════════════════════════════╝");
+    public void afficherGrillesCoteACote(Joueur autreJoueur) {
+        char[][] grille1 = this.getGrille();
+        char[][] grille2 = autreJoueur.getGrille();
+
+        System.out.println(
+                "  ╔═══════════════════════════════════════╗              ╔═══════════════════════════════════════╗");
+        System.out.println(
+                "  ║        Grille de l'Ordinateur         ║              ║             Votre grille              ║");
+        System.out.println(
+                "  ╚═══════════════════════════════════════╝              ╚═══════════════════════════════════════╝");
         System.out.println();
         System.out.print("    ");
         for (int i = 1; i <= 10; i++) {
             System.out.print(i + "   ");
         }
+        System.out.print("             ");
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(" " + i + "  ");
+        }
         System.out.println();
 
         char[] lettres = "ABCDEFGHIJ".toCharArray();
-        for (int j = 0; j < grille.length; j++) {
+        for (int j = 0; j < grille1.length; j++) {
             if (j == 0) {
-                System.out.println("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
+                System.out.println(
+                        "  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗              ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
             }
 
-            for (int i = 0; i < grille[j].length; i++) {
-                if (i == 0) {
-                    System.out.print(lettres[j] + " ║");
-                } else {
+            // Afficher la grille de l'ordinateur
+            System.out.print(lettres[j] + " ║");
+            for (int i = 0; i < grille1[j].length; i++) {
+                char c = grille1[j][i];
+                switch (c) {
+                    case 'M':
+                        System.out.print("\033[34m O \033[0m"); // O bleu pour miss
+                        break;
+                    case 'X':
+                        System.out.print("\033[31m X \033[0m"); // X rouge pour hit
+                        break;
+                    default:
+                        System.out.print("   ");
+                        break;
+                }
+                if (i < grille1[j].length - 1) {
                     System.out.print("║");
                 }
-                char c = grille[j][i];
+            }
+            System.out.print("║            ");
+
+            // Afficher la grille du joueur
+            System.out.print(lettres[j] + " ║");
+            for (int i = 0; i < grille2[j].length; i++) {
+                char c = grille2[j][i];
                 switch (c) {
                     case 'M':
                         System.out.print("\033[34m O \033[0m"); // O bleu pour miss
@@ -124,76 +170,33 @@ public class Joueur {
                         System.out.print(" " + c + " ");
                         break;
                 }
-            }
-            System.out.println("║");
-
-            if (j == grille.length - 1) {
-                System.out.println("  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
-            } else {
-                System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
-            }
-        }
-        System.out.println();
-    }
-
-	public void afficherGrilleOrdi() {
-        System.out.println("  ╔═══════════════════════════════════════╗");
-        System.out.println("  ║               Grille de Michel        ║");
-        System.out.println("  ╚═══════════════════════════════════════╝");
-        System.out.println();
-        System.out.print("    ");
-        for (int i = 1; i <= 10; i++) {
-            System.out.print(i + "   ");
-        }
-        System.out.println();
-
-        char[] lettres = "ABCDEFGHIJ".toCharArray();
-        for (int j = 0; j < grille.length; j++) {
-            if (j == 0) {
-                System.out.println("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
-            }
-
-            for (int i = 0; i < grille[j].length; i++) {
-                if (i == 0) {
-                    System.out.print(lettres[j] + " ║");
-                } else {
+                if (i < grille2[j].length - 1) {
                     System.out.print("║");
                 }
-                char c = grille[j][i];
-                switch (c) {
-                    case 'M':
-                        System.out.print("\033[34m O \033[0m"); // O bleu pour miss
-                        break;
-                    case 'X':
-                        System.out.print("\033[31m X \033[0m"); // X rouge pour hit
-                        break;
-                    default:
-                        System.out.print(" "+" "+" ");
-                        break;
-                }
             }
             System.out.println("║");
 
-            if (j == grille.length - 1) {
-                System.out.println("  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
+            if (j == grille1.length - 1) {
+                System.out.println(
+                        "  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝              ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
             } else {
-                System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+                System.out.println(
+                        "  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣              ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
             }
         }
         System.out.println();
     }
 
-	public boolean isFinish() {
-		int cpt = 0;
-		for (char[] row : this.grille) {
-		    for (char cell : row) {
-		        if (cell == 'X') {
-		            cpt ++;
-		        }
-		    }
-		}
-		System.out.println(cpt);
-		if (cpt != 17) {return false;}
-		else { return true;}
-	}
+    public boolean isFinish() {
+        int cpt = 0;
+        for (char[] row : this.grille) {
+            for (char cell : row) {
+                if (cell == 'X') {
+                    cpt++;
+                }
+            }
+        }
+        System.out.println(cpt);
+        return cpt == 17;
+    }
 }

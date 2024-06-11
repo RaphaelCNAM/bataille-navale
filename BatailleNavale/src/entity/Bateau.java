@@ -60,14 +60,18 @@ public class Bateau {
 
     public boolean peutPlacerBateau(char[][] grille, Coordonnee debut, int longueur, boolean estVertical) {
         if (estVertical) {
-            if (debut.getLigne() + longueur > grille.length) return false;
+            if (debut.getLigne() + longueur > grille.length)
+                return false;
             for (int i = 0; i < longueur; i++) {
-                if (grille[debut.getLigne() + i][debut.getColonne()] != 'O') return false;
+                if (grille[debut.getLigne() + i][debut.getColonne()] != 'O')
+                    return false;
             }
         } else {
-            if (debut.getColonne() + longueur > grille[0].length) return false;
+            if (debut.getColonne() + longueur > grille[0].length)
+                return false;
             for (int i = 0; i < longueur; i++) {
-                if (grille[debut.getLigne()][debut.getColonne() + i] != 'O') return false;
+                if (grille[debut.getLigne()][debut.getColonne() + i] != 'O')
+                    return false;
             }
         }
         return true;
