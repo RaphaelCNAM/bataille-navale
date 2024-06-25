@@ -105,6 +105,17 @@ public class Joueur {
         }
         return false;
     }
+    public void pui(Coordonnee coordonnee) {
+    	int ligne = coordonnee.getLigne();
+        int colonne = coordonnee.getColonne();
+        if (grille[ligne][colonne] == 'O') {
+            grille[ligne][colonne] = 'M'; // M pour miss (raté)
+            System.out.println("votre missile est dans la mer");
+        } else {
+            grille[ligne][colonne] = 'X'; // X pour hit (touché)
+            System.out.println("votre missile a touche");
+        }
+    }
 
     public void afficherGrillesCoteACote(Joueur autreJoueur) {
         char[][] grille1 = this.getGrille();
