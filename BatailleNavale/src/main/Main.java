@@ -18,11 +18,12 @@ public class Main {
 
 	        // Création et placement des bateaux pour le joueur humain
 	        Bateau[] bateauxJoueur = new Bateau[5];
-	        bateauxJoueur[0] = new PorteAvion(new Coordonnee((int) (Math.random() * 6), (int) (Math.random() * 6)), Math.random() < 0.5);
-	        bateauxJoueur[1] = new Croiseur(new Coordonnee((int) (Math.random() * 7), (int) (Math.random() * 7)), Math.random() < 0.5);
-	        bateauxJoueur[2] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-	        bateauxJoueur[3] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-	        bateauxJoueur[4] = new Torpilleur(new Coordonnee((int) (Math.random() * 9), (int) (Math.random() * 9)), Math.random() < 0.5);
+	        bateauxJoueur[0] = FabriqueBateau.creerBateau("PorteAvion");
+	        bateauxJoueur[1] = FabriqueBateau.creerBateau("Croiseur");
+	        bateauxJoueur[2] = FabriqueBateau.creerBateau("SousMarin");
+	        bateauxJoueur[3] = FabriqueBateau.creerBateau("SousMarin");
+	        bateauxJoueur[4] = FabriqueBateau.creerBateau("Torpilleur");
+
 
 	        for (Bateau bateau : bateauxJoueur) {
 	            joueur.addBateau(bateau);
@@ -30,11 +31,11 @@ public class Main {
 
 	        // Création et placement des bateaux pour l'ordinateur
 	        Bateau[] bateauxOrdinateur = new Bateau[5];
-	        bateauxOrdinateur[0] = new PorteAvion(new Coordonnee((int) (Math.random() * 6), (int) (Math.random() * 6)), Math.random() < 0.5);
-	        bateauxOrdinateur[1] = new Croiseur(new Coordonnee((int) (Math.random() * 7), (int) (Math.random() * 7)), Math.random() < 0.5);
-	        bateauxOrdinateur[2] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-	        bateauxOrdinateur[3] = new SousMarin(new Coordonnee((int) (Math.random() * 8), (int) (Math.random() * 8)), Math.random() < 0.5);
-	        bateauxOrdinateur[4] = new Torpilleur(new Coordonnee((int) (Math.random() * 9), (int) (Math.random() * 9)), Math.random() < 0.5);
+	        bateauxOrdinateur[0] = FabriqueBateau.creerBateau("PorteAvion");
+	        bateauxOrdinateur[1] = FabriqueBateau.creerBateau("Croiseur");
+	        bateauxOrdinateur[2] = FabriqueBateau.creerBateau("SousMarin");
+	        bateauxOrdinateur[3] = FabriqueBateau.creerBateau("SousMarin");
+	        bateauxOrdinateur[4] = FabriqueBateau.creerBateau("Torpilleur");
 
 	        for (Bateau bateau : bateauxOrdinateur) {
 	            ordinateur.addBateau(bateau);
@@ -42,7 +43,7 @@ public class Main {
 
 	        joueur.afficherGrille();
 	        
-	        ordinateur.afficherGrilleOrdi();
+	        ordinateur.afficherGrille();
 
 	        Scanner scanner = new Scanner(System.in);
 	        while (winJ==false && winO==false) {
@@ -54,7 +55,7 @@ public class Main {
 	            winJ = joueur.isFinish();
 	            winO = ordinateur.isFinish();
 	            ordinateur.afficherGrille();
-	            joueur.afficherGrilleOrdi();
+	            joueur.afficherGrille();
 	        }
 	        
 	        if(winO == true) {
