@@ -1,12 +1,7 @@
 package main;
 
-import java.awt.Color;
-import java.util.Scanner;
-
 import entity.*;
 import entity.bateaux.*;
-import javax.swing.JFrame;
-
 import interfaceGrafique.WindowFrame;
 
 public class MainInterfaceGrafique {
@@ -39,8 +34,7 @@ public class MainInterfaceGrafique {
         ordinateur.addBateau(bateau);
     }
 
-    ordinateur.afficherGrille();
-    joueur.afficherGrilleOrdi();
+    joueur.afficherGrillesCoteACote(ordinateur);
 
     /*Scanner scanner = new Scanner(System.in);
     while (true) {

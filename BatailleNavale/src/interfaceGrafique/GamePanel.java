@@ -20,7 +20,11 @@ import entity.Joueur;
 import entity.JoueurOrdinateur;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int originalTileSize = 16; // 16x16 pixel = 1 tile
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	final int originalTileSize = 16; // 16x16 pixel = 1 tile
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;
     private JLabel statusLabel;
