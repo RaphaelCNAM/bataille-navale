@@ -28,6 +28,7 @@ En termes d’environnement, il faut tout d’abord installer divers services n�
   ```bash
   java -version
   ```
+
   Redémarrer le PC si nécessaire.
 
 ## Pour commencer
@@ -42,5 +43,5 @@ Ensuite il faudra ouvrir le projet dans un éditeur de code comme Eclipse ou Vis
 
 ## Fabriqué avec
 
-- Pour la branche RaphaelVSC [Visual Studio Code](https://code.visualstudio.com/) - Editeur de textes
+- Pour la branche RaphaelVSC, raphael et lastclean [Visual Studio Code](https://code.visualstudio.com/) - Editeur de textes
 - Pour la branche jason [Eclipse](https://www.eclipse.org) - Editeur de textes
