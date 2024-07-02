@@ -43,22 +43,42 @@ public class Main {
 	        joueur.afficherGrillesCoteACote(ordinateur);
 
 	        Scanner scanner = new Scanner(System.in);
-	        while (winJ==false && winO==false) {
-	            System.out.print("Entrez les coordonnées pour tirer (ex: A5): ");
-	            String coordonnee = scanner.nextLine().toUpperCase();
-	            
-	            joueur.tirer(coordonnee);
-	            ordinateur.autoTire();	    
-	            winJ = joueur.isFinish();
-	            winO = ordinateur.isFinish();
-	            joueur.afficherGrillesCoteACote(ordinateur);
-	        }
-	        
-	        if(winO == true) {
-	        	System.out.println("L'ordinateur a Gagner");
-	        }else if(winJ == true) {
-	        	System.out.println("Vous a Gagner");
-	        }
-	    }
-	    
-}
+	        while (!winJ && !winO) {
+				boolean tirValide = false;
+	
+				// Demander la coordonnée jusqu'à ce qu'elle soit valide
+				do {
+					System.out.print("Entrez les coordonnées pour tirer (ex: A5): ");
+					String coordonnee = scanner.nextLine().toUpperCase();
+	
+					try {
+						joueur.tirer(coordonnee);
+						tirValide = true; // Le tir est valide
+					} catch (InvalidTirException e) {
+						System.out.println(e.getMessage());
+						System.out.println("Veuillez entrer une nouvelle coordonnée.");
+					}
+				} while (!tirValide);
+	
+				// Vérifier si le joueur a gagné
+				winJ = joueur.isFinish();
+				if (winJ) {
+					System.out.println("Vous avez Gagné");
+					break;
+				}
+	
+				// Tour de l'ordinateur
+				ordinateur.autoTire();
+				winO = ordinateur.isFinish();
+				if (winO) {
+					System.out.println("L'ordinateur a Gagné");
+					break;
+				}
+	
+				// Afficher les grilles après chaque tour
+				joueur.afficherGrillesCoteACote(ordinateur);
+			}
+	
+			scanner.close();
+		}
+	}
